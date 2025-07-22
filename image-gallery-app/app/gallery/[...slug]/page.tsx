@@ -10,8 +10,8 @@ import { GalleryImageCard } from "@/components/gallery-image-card"
 import { FolderCard } from "@/components/folder-card"
 import { ExpandedImageView } from "@/components/expanded-image-view"
 import { Breadcrumb } from "@/components/breadcrumb"
-import { findItemBySlug, type Image, type Folder } from "@/app/page"
-
+import { type Image, type Folder } from "@/app/page"
+//findItemBySlug
 interface FolderPageProps {
   params: {
     slug: string[]
@@ -19,7 +19,7 @@ interface FolderPageProps {
 }
 
 export default function NestedGalleryPage({ params }: FolderPageProps) {
-  const currentFolder = findItemBySlug(params.slug)
+  //const currentFolder = findItemBySlug(params.slug)
   const [selectedImage, setSelectedImage] = useState<Image | null>(null)
 
   if (!currentFolder) {

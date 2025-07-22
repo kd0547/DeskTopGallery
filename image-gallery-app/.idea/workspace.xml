@@ -5,37 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1031486-e3e9-4732-bad5-062357a98d47" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/gallery/[folderId]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/empty-state.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/path-selector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gallery/[...slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/gallery/[...slug]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/folder-card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/folder-card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "kd0547"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kd0547&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kd0547/DeskTopGallery.git",
-    "accountId": "dc839efc-0af3-4df5-b45a-2f38edfc197f"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kd0547/DeskTopGallery.git&quot;,
+    &quot;accountId&quot;: &quot;dc839efc-0af3-4df5-b45a-2f38edfc197f&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="30DJ59lDp452R0BGtwLFBj0A6XV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,6 +55,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
@@ -54,7 +65,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "npm.Next.js: server-side.executor": "Run",
+    "npm.Next.js: server-side.executor": "Debug",
     "ts.external.directory.path": "C:\\Users\\김동욱\\Desktop\\DeskTopGallery\\image-gallery-app\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -88,7 +99,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753156024134</updated>
-      <workItem from="1753156025735" duration="1778000" />
+      <workItem from="1753156025735" duration="8320000" />
+      <workItem from="1753171152949" duration="3044000" />
     </task>
     <servers />
   </component>
