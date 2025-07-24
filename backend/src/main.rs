@@ -115,7 +115,7 @@ async fn get_default_directory_path() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .wrap(Cors::permissive()) // 개발 중에는 permissive 허용
+            .wrap(Cors::permissive())
             .service(get_directory)
     })
         .bind(("127.0.0.1", 3001))?

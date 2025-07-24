@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1031486-e3e9-4732-bad5-062357a98d47" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/components/empty-state.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/path-selector.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/target/.rustc_info.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/gallery/[...slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/gallery/[...slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +49,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JavaScript Debug.localhost:3001.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
@@ -70,8 +67,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.Next.js: server-side">
+  <component name="RunManager" selected="JavaScript Debug.localhost:3001">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="localhost:3001" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3001/">
       <method v="2" />
     </configuration>
     <configuration name="Next.js: server-side" type="js.build_tools.npm">
@@ -84,6 +84,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.localhost:3001" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -100,7 +105,8 @@
       <option name="presentableId" value="Default" />
       <updated>1753156024134</updated>
       <workItem from="1753156025735" duration="8320000" />
-      <workItem from="1753171152949" duration="3044000" />
+      <workItem from="1753171152949" duration="3623000" />
+      <workItem from="1753248851794" duration="2354000" />
     </task>
     <servers />
   </component>
