@@ -1,17 +1,47 @@
 "use client"
+import React from "react"
 
-import type React from "react"
-
-import { useRef } from "react"
+import { useRef, useState,useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { FolderOpen, FolderUp } from "lucide-react"
+import { FolderOpen, FolderUp, HardDrive, Folder, ChevronRight } from "lucide-react"
+import { open } from "@tauri-apps/plugin-dialog"
+
+// 경로를 스타일링하는 새로운 내부 컴포넌트
+const StyledPath = ({ path }: { path: string }) => {
+    // Windows(\) 또는 Mac/Linux(/) 경로 구분자를 기준으로 경로를 나눕니다.
+    const parts = path.split(/[\\/]/).filter((p) => p)
+
+    return (
+        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-lg border border-slate-200 text-sm">
+            {parts.map((part, index) => (
+                <React.Fragment key={index}>
+                    {index > 0 && <ChevronRight className="w-4 h-4 text-slate-400" />}
+                    <div className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-md shadow-sm">
+                        {index === 0 && part.includes(":") ? (
+                            <HardDrive className="w-4 h-4 text-sky-600 flex-shrink-0" />
+                        ) : (
+                            <Folder className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                        )}
+                        <span className="font-medium text-slate-700 whitespace-nowrap">{part}</span>
+                    </div>
+                </React.Fragment>
+            ))}
+        </div>
+    )
+}
 
 export function PathSelector({ rootFolderName }: { rootFolderName: string }) {
-    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [currentPath, setCurrentPath] = useState(rootFolderName)
+    useEffect(() => {
+        setCurrentPath(rootFolderName)
+    }, [rootFolderName])
 
-    const handleIconClick = () => {
-        fileInputRef.current?.click()
+    const handleIconClick = async () => {
+        const folder = await open({
+            directory:true,
+            defaultPath:rootFolderName
+        })
     }
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +57,7 @@ export function PathSelector({ rootFolderName }: { rootFolderName: string }) {
 
     return (
         <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-gray-900">{rootFolderName}</h1>
+            <StyledPath path={currentPath} />
             <Popover>
                 <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-gray-500 hover:text-gray-900">
@@ -52,16 +82,7 @@ export function PathSelector({ rootFolderName }: { rootFolderName: string }) {
                                 <FolderUp className="mr-2 h-4 w-4" />
                                 로컬 폴더 열기...
                             </Button>
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                className="hidden"
-                                // @ts-ignore - for cross-browser compatibility
-                                webkitdirectory="true"
-                                mozdirectory="true"
-                                directory="true"
-                            />
+
                         </div>
                     </div>
                 </PopoverContent>

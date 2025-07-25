@@ -1,5 +1,6 @@
 "use client"
 import React,{useState,useEffect} from "react";
+import { invoke } from '@tauri-apps/api/core'
 
 import Link from "next/link"
 import { GalleryHeader } from "@/components/gallery-header"
@@ -21,22 +22,48 @@ export interface Folder {
 }
 export type GalleryItem = Folder | Image
 
+export interface DirInfo {
+    directory: string[];
+    file_path: string[];
+}
 
 export default function GalleryPage() {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [rootFolderName,setRootFolderName] = useState<string>("루트 디렉토리");
+  const [dir, setDir] = useState<string | null>(null)
+    useEffect(() => {
+        invoke<string | null>("get_user_directory")
+            .then((data)=> {
+                console.log(data)
+                if (data !== null) {
+                    setDir(data)
+                } else {
+                    // null일 때 처리
+                    setDir("C:\\")   // 또는 setDir("알 수 없음") 등
+                }
+            })
+            .catch(console.error)
+    }, [])
+
 
   useEffect(() => {
-    fetch("http://127.0.0.1:3001/directory")
-        .then(res => res.json())
-        .then((data: Folder[]) => {
-          setRootFolderName(data.name)
-          setFolders(data.items); // 서버에서 받은 폴더 배열 구조에 맞춰 저장
-        })
-        .catch(err => {
-          console.error("데이터 불러오기 실패:", err);
-        });
-  }, []);
+      if(!dir) return;
+      console.log("TEST"+dir);
+      invoke<DirInfo | null>("get_directory",{ path: dir })
+          .then(res => {
+              if (!res) return [];
+
+              console.log(res);
+              // 예: 폴더 이름 중 첫번째를 루트로
+              //setRootFolderName(folders[0]?.name || "");
+              //setFolders(folders);
+              //return folders; // 혹시 then 체이닝할 때 쓰려고
+          })
+          .catch(err => {
+              console.error("데이터 불러오기 실패:", err);
+          });
+
+  }, [dir]);
 
   const getFolderCoverImage = (folder: Folder): string => {
     const firstImage = folder.items.find((item) => item.type === "image") as Image | undefined
@@ -55,7 +82,7 @@ export default function GalleryPage() {
       <GalleryHeader />
       <main className="container mx-auto px-4 py-6">
         <div className="mb-6">
-          <PathSelector rootFolderName={"메인 페이지"} />
+          <PathSelector rootFolderName={dir??"C:\\"} />
         </div>
 
         {folders.length === 0 ? (
