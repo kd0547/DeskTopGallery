@@ -13,7 +13,7 @@ const StyledPath = ({ path }: { path: string }) => {
     const parts = path.split(/[\\/]/).filter((p) => p)
 
     return (
-        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-lg border border-slate-200 text-sm">
+        <div className="flex items-center gap-1 text-sm">
             {parts.map((part, index) => (
                 <React.Fragment key={index}>
                     {index > 0 && <ChevronRight className="w-4 h-4 text-slate-400" />}
@@ -56,11 +56,14 @@ export function PathSelector({ rootFolderName }: { rootFolderName: string }) {
 
 
     return (
-        <div className="flex items-center gap-2">
-            <StyledPath path={currentPath} />
+        <div className="flex items-stretch gap-0 border border-slate-200 rounded-lg bg-slate-50 overflow-hidden shadow-sm">
             <Popover>
                 <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon" className="text-gray-500 hover:text-gray-900">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 rounded-none border-r border-slate-200 h-auto px-3"
+                    >
                         <FolderOpen className="w-5 h-5" />
                         <span className="sr-only">경로 변경</span>
                     </Button>
@@ -87,6 +90,10 @@ export function PathSelector({ rootFolderName }: { rootFolderName: string }) {
                     </div>
                 </PopoverContent>
             </Popover>
+            <div className="flex-1 flex items-center p-1.5 pl-3">
+                <StyledPath path={currentPath} />
+
+            </div>
         </div>
     )
 }

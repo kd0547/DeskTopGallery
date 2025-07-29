@@ -49,38 +49,78 @@ struct FolderData {
 
 #[tauri::command]
 fn get_directory(path:String) -> FolderData {
-    println!("{}", path);
-    let entries = fs::read_dir(&path).unwrap();
-
-
-    let paths = entries
-        .map(|res| res.map(|e| e.path()))
-        .collect::<Result<Vec<_>, std::io::Error>>();
-
-    let response_data:FolderData = FolderData {
+    let root = get_name(&path);
+    let mut current_folder:FolderData = FolderData {
         types: "folder".to_string(),
         id: "".to_string(),
         name: "".to_string(),
         current_path: path,
         items: vec![],
     };
+    if let Ok(root_name_folder) = root {
+        current_folder.name = root_name_folder;
+    }
+    let entries = match fs::read_dir(&current_folder.current_path) {
+        Ok(entries) => entries,
+        Err(_) => {
+            return current_folder;
+        }
+    };
 
-    match paths {
-        Ok(paths) => {
-            for p in paths {
-                if p.is_dir() {
-                    let sub_dir = sub_classify_entry(&p).unwrap();
-                    let file_info = sub_dir.file_path.len();
-                    let dir_info = sub_dir.directory.len();
+    let paths = entries
+        .map(|res| res.map(|e| e.path()))
+        .collect::<Result<Vec<_>, std::io::Error>>();
 
+    if let Ok(path_list) = paths{
+
+        for sub_path in path_list {
+            println!("{}",sub_path.display());
+
+            if sub_path.is_dir() {
+                let mut folder:FolderData = FolderData {
+                    types: "folder".to_string(),
+                    id: "1".to_string(),
+                    name: get_name(&sub_path.display().to_string()).unwrap(),
+                    current_path: sub_path.display().to_string(),
+                    items: vec![],
+                };
+                current_folder.items.push(folder);
+
+                let sub_dir = sub_classify_entry(&sub_path).unwrap();
+                let file_info = sub_dir.file_path.len();
+                let dir_info = sub_dir.directory.len();
+
+                //디렉토리 추가
+                for dir in sub_dir.directory {
+                    if let Ok(d) = get_name(&dir) {
+                        let data:FolderData = FolderData {
+                            types: "folder".to_string(),
+                            id: d.clone(),
+                            name: d.clone(),
+                            current_path: dir.clone(),
+                            items: vec![],
+                        };
+                        current_folder.items.push(data);
+                    }
                 }
+
             }
         }
-        Err(e) => {
-            eprintln!("경로 목록을 가져오는 데 실패했습니다: {e}");
-        }
+    };
+
+    current_folder
+
+}
+
+fn get_name(path :&String) -> Result<String, &'static str> {
+
+    let paths:Vec<&str> = path.split("\\").collect();
+    if let Some(last) = paths.last() {
+        Ok(last.to_string()) // &str → String 변환
+    } else {
+        Err("경로가 비어 있습니다.")
     }
-    response_data
+
 }
 
 fn sub_classify_entry(path: &PathBuf) -> std::io::Result<FileInfo> {

@@ -7,25 +7,10 @@ import { GalleryHeader } from "@/components/gallery-header"
 import { FolderCard } from "@/components/folder-card"
 import {PathSelector} from "@/components/path-selector"
 import { EmptyState } from "@/components/empty-state"
+import {Sidebar} from "@/components/sidebar";
+import {FavoritesProvider} from "@/contexts/favorites-contexts";
+import {Folder,Image,GalleryItem} from "@/lib/app-util"
 
-export interface Image {
-  type: "image"
-  id: string
-  src: string
-  alt: string
-}
-export interface Folder {
-  type: "folder"
-  id: string
-  name: string
-  items: GalleryItem[]
-}
-export type GalleryItem = Folder | Image
-
-export interface DirInfo {
-    directory: string[];
-    file_path: string[];
-}
 
 export default function GalleryPage() {
   const [folders, setFolders] = useState<Folder[]>([]);
@@ -48,15 +33,17 @@ export default function GalleryPage() {
 
   useEffect(() => {
       if(!dir) return;
-      console.log("TEST"+dir);
-      invoke<DirInfo | null>("get_directory",{ path: dir })
+      invoke<Folder | null>("get_directory",{ path: dir })
           .then(res => {
-              if (!res) return [];
+              if (!res) return []
+              console.log(res)
 
-              console.log(res);
-              // 예: 폴더 이름 중 첫번째를 루트로
-              //setRootFolderName(folders[0]?.name || "");
-              //setFolders(folders);
+              const foldersOnly = res.items.filter(
+                  (item): item is Folder => item.types === "folder"
+              )
+              console.log(foldersOnly)
+
+              setFolders(foldersOnly);
               //return folders; // 혹시 then 체이닝할 때 쓰려고
           })
           .catch(err => {
@@ -66,9 +53,9 @@ export default function GalleryPage() {
   }, [dir]);
 
   const getFolderCoverImage = (folder: Folder): string => {
-    const firstImage = folder.items.find((item) => item.type === "image") as Image | undefined
+    const firstImage = folder.items.find((item) => item.types === "image") as Image | undefined
     if (firstImage) return firstImage.src
-    const subFolder = folder.items.find((item) => item.type === "folder") as Folder | undefined
+    const subFolder = folder.items.find((item) => item.types === "folder") as Folder | undefined
     if (subFolder) return getFolderCoverImage(subFolder)
     return "/placeholder.svg?height=300&width=400"
   }
@@ -78,38 +65,45 @@ export default function GalleryPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <GalleryHeader />
-      <main className="container mx-auto px-4 py-6">
-        <div className="mb-6">
-          <PathSelector rootFolderName={dir??"C:\\"} />
-        </div>
+      <FavoritesProvider>
+          <div className="flex min-h-screen bg-slate-50">
+              <Sidebar />
+              <div className="flex-1 flex flex-col">
+                  <GalleryHeader />
+                  <main className="container mx-auto px-4 py-6">
+                      <div className="mb-6">
+                          <PathSelector rootFolderName={dir??"C:\\"} />
+                      </div>
 
-        {folders.length === 0 ? (
-            <EmptyState />
-        ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {folders.map((item) => {
-                if (item.type === "folder") {
-                  const folderCount = item.items.filter((i) => i.type === "folder").length
-                  const fileCount = item.items.filter((i) => i.type === "image").length
-                  return (
-                      <Link key={item.id} href={`/gallery/${item.id}`} className="block">
-                        <FolderCard
-                            name={item.name}
-                            folderCount={folderCount}
-                            fileCount={fileCount}
-                            coverImage={getFolderCoverImage(item)}
-                        />
-                      </Link>
-                  )
-                }
-                return null
-              })}
-            </div>
-        )
-        }
-      </main>
-    </div>
+                      {folders.length === 0 ? (
+                          <EmptyState />
+                      ) : (
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                              {folders.map((item) => {
+                                  if (item.types === "folder") {
+                                      const folderCount = item.items.filter((i) => i.types === "folder").length
+                                      const fileCount = item.items.filter((i) => i.types === "image").length
+
+                                      return (
+                                          <Link key={item.id} href={`/gallery/${item.id}`} className="block">
+                                              <FolderCard
+                                                  id={item.id}
+                                                  name={item.name}
+                                                  folderCount={folderCount}
+                                                  fileCount={fileCount}
+                                                  coverImage={getFolderCoverImage(item)}
+                                              />
+                                          </Link>
+                                      )
+                                  }
+                                  return null
+                              })}
+                          </div>
+                      )
+                      }
+                  </main>
+              </div>
+          </div>
+      </FavoritesProvider>
   )
 }
